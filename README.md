@@ -1,6 +1,6 @@
 # stCluster
 
-![stCluster overview](./framwork.png) 
+![stCluster overview](./framework.png) 
 
 ## Overview 
 Spatial transcriptomics offers unprecedented insights into gene expression within the native tissue context, effectively bridging molecular data with spatial information to unveil intricate cellular interactions and tissue organizations. In this regard, deciphering cellular spatial domains is a crucial task that requires the effective integration of gene expression data and spatial information. We introduce stCluster, a novel method that integrates graph contrastive learning with multi-task learning to refine informative representations for spatial transcriptomic data, consequently improving spatial domain identification. stCluster first leverages graph contrastive learning to learn discriminative representations capable of recognizing spatially coherent patterns. Through jointly optimizing multiple tasks, stCluster further fine-tunes the representations to be able to capture complex relationships between gene expression and spatial organization. Experimental results reveal its proficiency in accurately identifying complex spatial domains across various datasets and platforms, spanning tissue, organ, and embryo levels, outperforming existing state-of-the-art methods. Moreover, stCluster can effectively denoise the spatial gene expression patterns and enhance the spatial trajectory inference. 
