@@ -24,10 +24,40 @@ mclust==5.4.10
 
 1. Import conda environment:  
 ``` bash
-conda env create -f environment.yaml
+conda env create -f environment.yml
 ```
 
 2. Write a python script to run stCluster
+
+## Example
+``` python
+from stCluster.train import train
+from st_datasets.dataset import get_data, dataset_you_need
+
+# load dataset 
+adata, n_cluster = get_data(dataset_func=dataset_you_need, dataset_args)
+
+# train stCluster
+adata, g = train(adata, train_args)
+
+# downstream analysis
+# clustering
+from stCluster.run import evaluate_embedding
+
+adata, score = evaluate_embedding(adata=adata, n_cluster=n_cluster, cluster_method=['mclust'], cluster_score_method=['ARI'])
+print(score)    # show ARI score
+# ...
+
+# denoising
+from stCluster.denoising import train as denoising
+
+adata = denoising(adata, spatial_graph=g, denoising_args)
+# evaluate denoised gene expression
+# ...
+
+# other downstream tasks
+# ...
+```
 
 
 <!-- ## Citation
