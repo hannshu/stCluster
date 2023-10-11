@@ -15,19 +15,47 @@ R==4.2.0
 mclust==5.4.10
 
 
-## Fast deploy
-<!-- ### Deployed by DockerHub (*Recommended*):  
- -->
+## Setup stCluster
+### Setup by Docker (*Recommended*):  
+1. Download the stcluster image from [DockerHub](https://hub.docker.com/repository/docker/hannshu/stcluster) and setup a container:
+``` bash
+docker run --gpu all --name your_container_name -idt hannshu/stcluster:latest
+```
 
-### Deployed by anaconda:  
+2. Access the container:
+``` bash
+docker start your_container_name
+docker exec -it your_container_name /bin/bash
+```
+
+3. Write a python script to run stCluster
+
+The anaconda environment for `stCluster` will be automatically activate in the container. The `stCluster` source code is located at `\root\stCluster`, please run ```git pull``` to update the codes before you use. 
+
+- Note: Please make sure `nvidia-docker2` is properly installed on your host device. (Or follow this instruction to [setup nvidia-docker2](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) first)
+
+### Setup by anaconda:  
 [install anaconda](https://docs.anaconda.com/free/anaconda/install/)
 
-1. Import conda environment:  
+1. Clone this repository from Github:
+``` bash
+git clone https://github.com/hannshu/stCluster.git
+```
+
+2. Download dataset repository:
+
+``` bash
+git submodule init
+git submodule update
+```
+
+3. Import conda environment:  
 ``` bash
 conda env create -f environment.yml
 ```
 
-2. Write a python script to run stCluster
+4. Write a python script to run stCluster
+
 
 ## Example
 ``` python
