@@ -25,7 +25,6 @@ def train(
         preclust_para: float = 1.,                                      # if louvain -> resolution, if kmeans -> knears
         precluster_img_save_path: str = None,                           # save path of the pre-cluster result
         final_graph_img_save_path: str = None,                          # save path of the after pruning graph result
-        init_paras: str = None,                                         # load initialized model parameters
         ae_layers: list = [3000, 512, 30],                              # GNN and FC layer
         tmp: float = .5,                                                # temperature value of CL 
         cutting_prob_1: float = .05,                                    # cutting edge rate for view 1
@@ -66,7 +65,6 @@ def train(
             should set ``knears``
         precluster_img_save_path (str): save path of the pre-cluster result
         final_graph_img_save_path (str): save path of the after pruning graph result
-        init_paras (str): load initialized model parameters
         ae_layers (list): GNN and FC layer
         tmp (float): temperature value of CL 
         cutting_prob_1 (float): cutting edge rate for view 1
@@ -156,13 +154,6 @@ def train(
         rates=rates, 
         temp=tmp,
     ).to(device) 
-    # use init model parameters
-    if (None != init_paras):
-        model = torch.load(init_paras, map_location=device)
-        model.embed_clust = nn.Parameter(cluster_embed).to(device)
-        model.gene_rate = rates['gene_rate']
-        model.adj_rate = rates['adj_rate']
-        model.pred_rate = rates['pred_rate']
     optim = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
     embed = init_embed.to(device)
     edge_index = spatial_graph.edges()

@@ -14,6 +14,7 @@ DGL==1.1.1(cuda==11.7)
 R==4.2.0  
 mclust==5.4.10
 
+Due to the differences in hardware, the results of stCluster on your device may significantly differ from what is reported in our paper. To fully reproduce the results as described in the paper, it is recommended to use the container we have provided on a Nvidia RTX 3090 GPU device.
 
 ## Setup stCluster
 ### Setup by Docker (*Recommended*):  
@@ -30,7 +31,7 @@ docker exec -it your_container_name /bin/bash
 
 3. Write a python script to run stCluster
 
-The anaconda environment for `stCluster` will be automatically activate in the container. The `stCluster` source code is located at `\root\stCluster`, please run ```git pull``` to update the codes before you use. 
+The anaconda environment for stCluster will be automatically activate in the container. The stCluster source code is located at `\root\stCluster`, please run ```git pull``` to update the codes before you use. 
 
 - Note: Please make sure `nvidia-docker2` is properly installed on your host device. (Or follow this instruction to [setup nvidia-docker2](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) first)
 
@@ -55,7 +56,6 @@ conda env create -f environment.yml
 ```
 
 4. Write a python script to run stCluster
-
 
 ## Example
 ``` python
