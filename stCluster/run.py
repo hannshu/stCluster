@@ -106,7 +106,7 @@ def load_and_evaluate(
         device='cuda' if torch.cuda.is_available() else 'cpu',
         embed_name='embedding'
 ):
-    adata = eval(
+    adata, _ = eval(
         data=adata,
         model_paras_path=model_paras_path,
         radius=radius,

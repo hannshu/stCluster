@@ -70,4 +70,4 @@ def eval(data: sc.AnnData,
 
     print('>>> INFO: Finish embedding generation process, please use the embedding to do downstream evaluation, total time: {:.3f}s'.format(time.time() - start_time)) if (show) else None
 
-    return adata
+    return adata, spatial_graph

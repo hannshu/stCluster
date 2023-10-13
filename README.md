@@ -1,4 +1,5 @@
 # stCluster
+[![Documentation Status](https://readthedocs.org/projects/stcluster/badge/?version=latest)](https://stcluster.readthedocs.io/en/latest/?badge=latest)
 
 ![stCluster overview](./framework.png) 
 
@@ -87,6 +88,8 @@ adata = denoising(adata, spatial_graph=g, denoising_args)
 # ...
 ```
 
+## Tutorial
+Read the [Documentation](https://stcluster.readthedocs.io/en/latest/) for detailed tutorials.
 
 <!-- ## Citation
 If you have found stCluster useful in your work, please consider citing [our article](url):
