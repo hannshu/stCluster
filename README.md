@@ -15,13 +15,13 @@ DGL==1.1.1(cuda==11.7)
 R==4.2.0  
 mclust==5.4.10
 
-Due to the differences in hardware, the results of stCluster on your device may significantly differ from what is reported in our paper. To fully reproduce the results as described in the paper, it is recommended to use the container we have provided on a Nvidia RTX 3090 GPU device.
+To fully reproduce the results as described in the paper, it is recommended to use the container we have provided on a Nvidia RTX 3090 GPU device.
 
 ## Setup stCluster
 ### Setup by Docker (*Recommended*):  
 1. Download the stcluster image from [DockerHub](https://hub.docker.com/repository/docker/hannshu/stcluster) and setup a container:
 ``` bash
-docker run --gpu all --name your_container_name -idt hannshu/stcluster:latest
+docker run --gpus all --name your_container_name -idt hannshu/stcluster:latest
 ```
 
 2. Access the container:
