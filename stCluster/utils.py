@@ -356,10 +356,7 @@ def draw_umap_result(adata, embedding_name, save_path, title, **kwargs):
 def gen_adata(feature: np.ndarray, coors: np.ndarray, meta_data: pd.DataFrame = None, gene_name: list = None, spot_name: list = None):
 
     # load gene expression matrix
-    if (isinstance(feature, pd.DataFrame)):
-        adata = sc.AnnData(csr_matrix(feature), obs=feature.index, var=feature.columns)
-    else:
-        adata = sc.AnnData(csr_matrix(feature))
+    adata = sc.AnnData(csr_matrix(feature))
 
     # load spatial coordination
     coors = np.array(coors)
