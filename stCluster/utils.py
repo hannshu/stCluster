@@ -13,6 +13,10 @@ from sklearn.cluster import KMeans
 from sklearn.neighbors import NearestNeighbors
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+from scipy.sparse import csr_matrix
+
+
+plt.rcParams['font.sans-serif'] = ['Times New Roman']
 
 
 # set seed
@@ -347,3 +351,72 @@ def draw_umap_result(adata, embedding_name, save_path, title, **kwargs):
 
     del adata.obsp['umap_key_distances']
     del adata.obsp['umap_key_connectivities']
+
+
+def gen_adata(feature: np.ndarray, coors: np.ndarray, meta_data: pd.DataFrame = None, gene_name: list = None, spot_name: list = None):
+
+    # load gene expression matrix
+    if (isinstance(feature, pd.DataFrame)):
+        adata = sc.AnnData(csr_matrix(feature), obs=feature.index, var=feature.columns)
+    else:
+        adata = sc.AnnData(csr_matrix(feature))
+
+    # load spatial coordination
+    coors = np.array(coors)
+    if (2 == coors.shape[1]):
+        adata.obsm['spatial'] = coors
+    else:
+        adata.obsm['spatial'] = coors.T
+
+    # set misc
+    if (isinstance(meta_data, pd.DataFrame)):
+        adata.obs = meta_data
+    if (gene_name):
+        adata.var.index = gene_name
+    if (spot_name):
+        adata.obs.index = spot_name
+
+    return adata
+
+
+def cal_MARI(list1: list, list2: list):
+
+    import rpy2.robjects as robjects
+    from rpy2.robjects.packages import importr
+
+    # Load aricode
+    aricode = importr("aricode")
+
+    # Call the MARI function
+    mari_result = aricode.MARI(
+        robjects.r['unlist'](list(list1)), robjects.r['unlist'](list(list2))
+    )
+
+    return mari_result[0]
+
+
+def cal_modularity(edge_list: np.ndarray, label: list):
+
+    g = nx.Graph()
+    g.add_edges_from(edge_list)
+
+    label_mapping = {list(set(label))[i]: i for i in range(len(set(label)))}
+    partition = [[] for _ in range(len(set(label)))]
+    for j in range(len(label)):
+        partition[label_mapping[label[j]]-1].append(j)
+
+    print(f'Modularity: {nx.community.modularity(g, [set(j) for j in partition])}')
+
+
+def cal_partition_quality(edge_list: np.ndarray, label: list):
+
+    g = nx.Graph()
+    g.add_edges_from(edge_list)
+
+    label_mapping = {list(set(label))[i]: i for i in range(len(set(label)))}
+    partition = [[] for _ in range(len(set(label)))]
+    for j in range(len(label)):
+        partition[label_mapping[label[j]]-1].append(j)
+
+    quality = nx.community.partition_quality(g, [set(j) for j in partition])
+    print(f'Coverage: {quality[0]}, Performance: {quality[1]}')
