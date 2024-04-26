@@ -73,6 +73,8 @@ adata, g = train(adata, train_args)
 # clustering
 from stCluster.run import evaluate_embedding
 
+# to get the clustering result by mclust, you need to install the mclust R package 
+# we provide the mclust package we used at https://github.com/hannshu/st_clustering/blob/master/mclust_package/mclust_5.4.10.tar.gz
 adata, score = evaluate_embedding(adata=adata, n_cluster=n_cluster, cluster_method=['mclust'], cluster_score_method=['ARI'])
 print(score)    # show ARI score
 # ...
